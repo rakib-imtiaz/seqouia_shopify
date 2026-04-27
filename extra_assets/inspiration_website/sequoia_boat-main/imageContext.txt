@@ -1,0 +1,220 @@
+# Sequoia Boat Rentals - Image Requirements
+
+## Branding Images
+
+
+## Hero Section Images
+
+1. **Hero Background - Homepage**
+   - File: `hero-bg.jpg`
+   - Description: Stunning panoramic view of an inflatable boat on calm lake water with mountains in background, bright sunny day
+   - Format: JPG
+   - Dimensions: 1920x1080px
+
+2. **Hero Background Pattern Overlay**
+   - File: `pattern-overlay.png`
+   - Description: Subtle wave pattern for overlay on hero images
+   - Format: PNG with transparency
+   - Dimensions: 400x400px (tileable)
+
+## Video Backgrounds
+
+1. **Lake Exploration Video**
+   - File: `videos/lake-video-background.mp4`
+   - Description: High-quality video of inflatable boats gliding across a scenic lake with mountains in the background
+   - Format: MP4 (H.264 codec)
+   - Resolution: 1920x1080px (Full HD)
+   - Duration: 20-30 seconds in a seamless loop
+   - File size: Optimized for web (5-10MB maximum)
+
+2. **Hero Video Poster Image**
+   - File: `hero-bg.jpg` (same as Hero Background)
+   - Description: Static image shown while video is loading
+   - Format: JPG
+   - Dimensions: 1920x1080px
+
+## About Section Images
+
+1. **About Main Image**
+   - File: `about-image.jpg`
+   - Description: Happy family/friends on an inflatable boat enjoying their lake experience
+   - Format: JPG
+   - Dimensions: 800x600px
+
+2. **About Secondary Image**
+   - File: `about-experience.jpg`
+   - Description: Close-up of electric motor and controls on the inflatable boat
+   - Format: JPG
+   - Dimensions: 600x400px
+
+## Lake Images
+
+1. **Heffley Lake**
+   - File: `heffley-lake.jpg`
+   - Description: Scenic view of Heffley Lake with mountains in background, calm water
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `heffley-lake-2.jpg`
+   - Description: People enjoying inflatable boats on Heffley Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `heffley-lake-3.jpg`
+   - Description: Shoreline view of Heffley Lake showing dock/launch area
+   - Format: JPG
+   - Dimensions: 800x600px
+
+2. **Paul Lake**
+   - File: `paul-lake.jpg`
+   - Description: Aerial or wide view of Paul Lake showing the surrounding landscape
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `paul-lake-2.jpg`
+   - Description: Beach/shore area of Paul Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `paul-lake-3.jpg`
+   - Description: Person fishing from inflatable boat on Paul Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+3. **Monte Lake**
+   - File: `monte-lake.jpg`
+   - Description: Panoramic view of Monte Lake with forested shores
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `monte-lake-2.jpg`
+   - Description: Inflatable boat tied up at Monte Lake shoreline
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `monte-lake-3.jpg`
+   - Description: Sunset view over Monte Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+4. **Shuswap Lake**
+   - File: `shuswap-lake.jpg`
+   - Description: Wide view of Shuswap Lake showing its size and surroundings
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `shuswap-lake-2.jpg`
+   - Description: Small cove or beach area at Shuswap Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `shuswap-lake-3.jpg`
+   - Description: Group enjoying inflatable boats on Shuswap Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+5. **Kamloops Lake**
+   - File: `kamloops-lake.jpg`
+   - Description: Panoramic view of Kamloops Lake with city/mountains in background
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `kamloops-lake-2.jpg`
+   - Description: Close-up of inflatable boat on Kamloops Lake waters
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `kamloops-lake-3.jpg`
+   - Description: View of launch area or marina at Kamloops Lake
+   - Format: JPG
+   - Dimensions: 800x600px
+
+6. **Lac Le Jeune**
+   - File: `lac-le-jeune.jpg`
+   - Description: Wide view of Lac Le Jeune showing its smaller, more intimate setting
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `lac-le-jeune-2.jpg`
+   - Description: Person paddling on inflatable boat at Lac Le Jeune
+   - Format: JPG
+   - Dimensions: 800x600px
+
+   - File: `lac-le-jeune-3.jpg`
+   - Description: Shoreline with picnic area at Lac Le Jeune
+   - Format: JPG
+   - Dimensions: 800x600px
+
+## Services Section Images
+
+1. **Boat Types**
+   - File: `boat-small.jpg`
+   - Description: 1-2 person inflatable boat with electric motor
+   - Format: JPG
+   - Dimensions: 600x400px
+
+   - File: `boat-family.jpg`
+   - Description: Family-sized (3-4 person) inflatable boat with electric motor
+   - Format: JPG
+   - Dimensions: 600x400px
+
+2. **Add-ons**
+   - File: `addon-cooler.jpg`
+   - Description: Marine cooler that can be rented with boat
+   - Format: JPG
+   - Dimensions: 400x300px
+
+   - File: `addon-speaker.jpg`
+   - Description: JBL Flip-6 Bluetooth speaker available as rental add-on
+   - Format: JPG
+   - Dimensions: 400x300px
+
+   - File: `addon-drybags.jpg`
+   - Description: Waterproof dry bags available as rental add-on
+   - Format: JPG
+   - Dimensions: 400x300px
+
+3. **Concierge Services**
+   - File: `service-license.jpg`
+   - Description: Person showing boating license document
+   - Format: JPG
+   - Dimensions: 600x400px
+
+   - File: `service-driver.jpg`
+   - Description: Professional driver operating the boat for customers
+   - Format: JPG
+   - Dimensions: 600x400px
+
+## Map Images
+
+1. **Lakes Map**
+   - File: `map-lakes.jpg`
+   - Description: Map showing all six lakes in relation to Kamloops
+   - Format: JPG
+   - Dimensions: 1200x800px
+
+2. **Delivery Map**
+   - File: `map-delivery.jpg`
+   - Description: Map showing free delivery zones and other delivery areas with distance markers
+   - Format: JPG
+   - Dimensions: 1200x800px
+
+## People/Experience Images
+
+1. **Customer Testimonials**
+   - File: `testimonial-1.jpg`
+   - Description: Smiling couple on inflatable boat
+   - Format: JPG
+   - Dimensions: 300x300px (square crop)
+
+   - File: `testimonial-2.jpg`
+   - Description: Family enjoying day on the lake
+   - Format: JPG
+   - Dimensions: 300x300px (square crop)
+
+   - File: `testimonial-3.jpg`
+   - Description: Individual fisherman using inflatable boat
+   - Format: JPG
+   - Dimensions: 300x300px (square crop)
+
+Note: All photos should have good lighting, professional composition, and showcase the beauty of the lakes and the enjoyment of using the inflatable boats. Images should be optimized for web use to ensure fast loading times while maintaining quality. 

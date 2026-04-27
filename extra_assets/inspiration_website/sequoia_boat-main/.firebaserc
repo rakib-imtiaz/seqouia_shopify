@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "sequoiaboatrentals"
+  },
+  "targets": {
+    "sequoiaboatrentals": {
+      "hosting": {
+        "sequoia-site": [
+          "sequoiaboatrentals"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

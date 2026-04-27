@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: #fbfaf6;
+  --ink: #141816;
+}
+
+html, body, #root {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Outfit', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body { margin: 0; }
+
+* { -webkit-tap-highlight-color: transparent; }
+
+::selection {
+  background: #1d3623;
+  color: #f4f1e8;
+}
+
+/* Skill: grain on FIXED pseudo only — never on scrolling containers */
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, rgba(20,24,22,0.18), transparent);
+  height: 1px;
+}
+
+.marquee-track {
+  display: inline-flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(20,24,22,0.04) 0%, rgba(20,24,22,0.10) 50%, rgba(20,24,22,0.04) 100%);
+  background-size: 200% 100%;
+}
+
+.press {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.press:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+/* Liquid-glass — inner-edge refraction per skill section 4 */
+.glass {
+  background: rgba(251,250,246,0.55);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 1px 0 rgba(20,24,22,0.04),
+    0 12px 40px -16px rgba(20,24,22,0.20);
+}
+
+.glass-dark {
+  background: rgba(20,24,22,0.55);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 12px 40px -16px rgba(0,0,0,0.50);
+}
+
+input, textarea, select, button { font-family: inherit; }
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(48,87,57,0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

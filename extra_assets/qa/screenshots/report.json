@@ -1,0 +1,155 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "startedAt": "2026-04-26T10:51:50.655Z",
+  "viewports": {
+    "desktop": {
+      "overflow": {
+        "docW": 1440,
+        "viewW": 1440,
+        "overflow": 0
+      },
+      "sections": [
+        {
+          "id": "top",
+          "label": "hero",
+          "present": true,
+          "offsetH": 900,
+          "scrollH": 924,
+          "top": 0
+        },
+        {
+          "id": "why",
+          "label": "features",
+          "present": true,
+          "offsetH": 1606,
+          "scrollH": 1606,
+          "top": 0
+        },
+        {
+          "id": "services",
+          "label": "services",
+          "present": true,
+          "offsetH": 3838,
+          "scrollH": 3838,
+          "top": 0.4375
+        },
+        {
+          "id": "lakes",
+          "label": "lakes",
+          "present": true,
+          "offsetH": 2389,
+          "scrollH": 2389,
+          "top": 0.75
+        },
+        {
+          "id": "booking",
+          "label": "booking",
+          "present": true,
+          "offsetH": 1333,
+          "scrollH": 1333,
+          "top": 0.625
+        },
+        {
+          "id": "turo",
+          "label": "turo",
+          "present": true,
+          "offsetH": 1271,
+          "scrollH": 1271,
+          "top": 0
+        },
+        {
+          "id": "about",
+          "label": "about",
+          "present": true,
+          "offsetH": 1230,
+          "scrollH": 1230,
+          "top": 0.734375
+        }
+      ],
+      "consoleMsgs": [],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4173/assets/videos/lake-video-background.mp4",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "imageCount": 24,
+      "brokenImages": []
+    },
+    "mobile": {
+      "overflow": {
+        "docW": 390,
+        "viewW": 390,
+        "overflow": 0
+      },
+      "sections": [
+        {
+          "id": "top",
+          "label": "hero",
+          "present": true,
+          "offsetH": 698,
+          "scrollH": 716,
+          "top": 0
+        },
+        {
+          "id": "why",
+          "label": "features",
+          "present": true,
+          "offsetH": 3003,
+          "scrollH": 3003,
+          "top": 0.9375
+        },
+        {
+          "id": "services",
+          "label": "services",
+          "present": true,
+          "offsetH": 6512,
+          "scrollH": 6512,
+          "top": 0.75
+        },
+        {
+          "id": "lakes",
+          "label": "lakes",
+          "present": true,
+          "offsetH": 2820,
+          "scrollH": 2820,
+          "top": 0.46875
+        },
+        {
+          "id": "booking",
+          "label": "booking",
+          "present": true,
+          "offsetH": 2413,
+          "scrollH": 2413,
+          "top": 0.5
+        },
+        {
+          "id": "turo",
+          "label": "turo",
+          "present": true,
+          "offsetH": 1509,
+          "scrollH": 1509,
+          "top": 0.875
+        },
+        {
+          "id": "about",
+          "label": "about",
+          "present": true,
+          "offsetH": 2007,
+          "scrollH": 2007,
+          "top": 0.640625
+        }
+      ],
+      "consoleMsgs": [],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4173/assets/videos/lake-video-background.mp4",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "imageCount": 24,
+      "brokenImages": []
+    }
+  },
+  "completedAt": "2026-04-26T10:53:09.752Z"
+}

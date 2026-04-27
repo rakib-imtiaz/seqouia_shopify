@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled - Sequoia Boat Rentals</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Version & asset helpers -->
+    <script src="js/app-version.js"></script>
+    <script src="js/asset-path.js"></script>
+    <script src="js/auto-version.js" defer></script>
+
+    <!-- Custom CSS (version appended automatically) -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Cancel page specific styles */
+        .payment-cancelled {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: var(--space-lg);
+        }
+
+        .cancelled-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-xl);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cancelled-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--error), var(--accent));
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+            display: block;
+            color: var(--error);
+        }
+
+        .cancelled-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--dark);
+        }
+
+        .cancelled-message {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gray);
+            margin-bottom: var(--space-lg);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-home {
+            background: var(--primary);
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .btn-home:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-retry {
+            background: var(--accent);
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .btn-retry:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 576px) {
+            .cancelled-card {
+                padding: var(--space-lg);
+                margin: var(--space-md);
+            }
+
+            .cancelled-title {
+                font-size: 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-home,
+            .btn-retry {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Payment Cancelled Section -->
+    <section class="payment-cancelled">
+        <div class="cancelled-card">
+            <i class="fas fa-times-circle status-icon"></i>
+            <h2 class="cancelled-title">Payment Cancelled</h2>
+            <p class="cancelled-message">
+                Your payment was cancelled. No charges were made to your account. You can try again or contact us if you
+                need assistance.
+            </p>
+            <div class="action-buttons">
+                <a href="/" class="btn-home">
+                    <i class="fas fa-home"></i>
+                    Return Home
+                </a>
+                <a href="/services.html" class="btn-retry">
+                    <i class="fas fa-redo"></i>
+                    Try Again
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

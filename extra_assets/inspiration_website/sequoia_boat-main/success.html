@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation - Sequoia Boat Rentals</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Version & asset helpers -->
+    <script src="js/app-version.js"></script>
+    <script src="js/asset-path.js"></script>
+    <script src="js/auto-version.js" defer></script>
+
+    <!-- Custom CSS (version appended automatically) -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Success page specific styles */
+        .payment-confirmation {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: var(--space-lg);
+        }
+
+        .confirmation-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-xl);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confirmation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--success), var(--secondary));
+        }
+
+        .verifying-section {
+            display: block;
+        }
+
+        .success-section,
+        .error-section {
+            display: none;
+        }
+
+        .verifying-section.show,
+        .success-section.show,
+        .error-section.show {
+            display: block;
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+            display: block;
+        }
+
+        .status-icon.success {
+            color: var(--success);
+        }
+
+        .status-icon.error {
+            color: var(--error);
+        }
+
+        .status-icon.verifying {
+            color: var(--secondary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--light);
+            border-top: 4px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--space-lg);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .confirmation-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--dark);
+        }
+
+        .confirmation-message {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gray);
+            margin-bottom: var(--space-lg);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-home {
+            background: var(--primary);
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .btn-home:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-contact {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .btn-contact:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .error-details {
+            background: var(--light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: left;
+        }
+
+        @media (max-width: 576px) {
+            .confirmation-card {
+                padding: var(--space-lg);
+                margin: var(--space-md);
+            }
+
+            .confirmation-title {
+                font-size: 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-home,
+            .btn-contact {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Payment Confirmation Section -->
+    <section class="payment-confirmation">
+        <div class="confirmation-card">
+            <!-- Verifying Section -->
+            <div id="verifying-section" class="verifying-section show">
+                <div class="spinner"></div>
+                <h2 class="confirmation-title">Verifying Your Payment</h2>
+                <p class="confirmation-message">
+                    Please wait while we verify your payment with our secure payment processor...
+                </p>
+            </div>
+
+            <!-- Success Section -->
+            <div id="success-section" class="success-section">
+                <i class="fas fa-check-circle status-icon success"></i>
+                <h2 class="confirmation-title">Payment Successful!</h2>
+                <p class="confirmation-message">
+                    Thank you for your payment! Your booking has been confirmed and you will receive a confirmation
+                    email shortly.
+                </p>
+                <div class="action-buttons">
+                    <a href="/" class="btn-home">
+                        <i class="fas fa-home"></i>
+                        Return Home
+                    </a>
+                </div>
+            </div>
+
+            <!-- Error Section -->
+            <div id="error-section" class="error-section">
+                <i class="fas fa-exclamation-triangle status-icon error"></i>
+                <h2 class="confirmation-title">Payment Issue</h2>
+                <p class="confirmation-message">
+                    There was an issue with your payment, or it is still processing. Please contact us for support.
+                </p>
+                <div class="error-details" id="error-details" style="display: none;">
+                    <strong>Error Details:</strong>
+                    <div id="error-message"></div>
+                </div>
+                <div class="action-buttons">
+                    <a href="/" class="btn-home">
+                        <i class="fas fa-home"></i>
+                        Return Home
+                    </a>
+                    <a href="mailto:support@sequoiaboatrentals.com" class="btn-contact">
+                        <i class="fas fa-envelope"></i>
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+
+    <!-- Stripe SDK -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <!-- Firebase initialization -->
+    <script src="js/firebase-init.js"></script>
+
+    <!-- Payment verification script -->
+    <script>
+        // Stripe configuration
+        const stripePublicKey = 'pk_test_51Q3kG52MjkSKR6fvmtb34MRHNdvuf71pcRXm8AnvPEOXLAHnVe21vxp6yhs0M4pesJJbi0zPE98GDEG7lHmqATWn00rj6Mm2Ag';
+        let stripe;
+
+        // DOM elements
+        const verifyingSection = document.getElementById('verifying-section');
+        const successSection = document.getElementById('success-section');
+        const errorSection = document.getElementById('error-section');
+        const errorDetails = document.getElementById('error-details');
+        const errorMessage = document.getElementById('error-message');
+
+        /**
+         * Initialize Stripe
+         */
+        function initializeStripe() {
+            if (typeof Stripe !== 'undefined') {
+                stripe = Stripe(stripePublicKey);
+            } else {
+                console.error('Stripe.js is not loaded');
+                throw new Error('Stripe.js is not loaded');
+            }
+        }
+
+        /**
+         * Get URL parameters
+         */
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        /**
+         * Show a specific section and hide others
+         */
+        function showSection(sectionId) {
+            // Hide all sections
+            verifyingSection.classList.remove('show');
+            successSection.classList.remove('show');
+            errorSection.classList.remove('show');
+
+            // Show the specified section
+            document.getElementById(sectionId).classList.add('show');
+        }
+
+        /**
+         * Update booking payment status in Firebase
+         */
+        async function updateBookingPaymentStatus(sessionId, paymentStatus) {
+            try {
+                // Get the booking document that matches this session ID
+                const bookingsRef = db.collection('bookings');
+                const querySnapshot = await bookingsRef.where('paymentSessionId', '==', sessionId).get();
+
+                if (querySnapshot.empty) {
+                    console.warn('No booking found with session ID:', sessionId);
+                    return false;
+                }
+
+                // Update the first matching booking
+                const bookingDoc = querySnapshot.docs[0];
+                await bookingDoc.ref.update({
+                    isPaid: paymentStatus === 'paid',
+                    paymentStatus: paymentStatus,
+                    paymentVerifiedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                console.log('Booking payment status updated successfully');
+                return true;
+            } catch (error) {
+                console.error('Error updating booking payment status:', error);
+                return false;
+            }
+        }
+
+        /**
+         * Additional server-side verification using Firebase Functions
+         */
+        async function verifyPaymentWithServer(sessionId) {
+            try {
+                const functions = firebase.functions();
+                const verifyPayment = functions.httpsCallable('verifyPayment');
+                
+                const result = await verifyPayment({ sessionId: sessionId });
+                console.log('Server verification result:', result.data);
+                return result.data.success;
+            } catch (error) {
+                console.error('Server verification failed:', error);
+                return false;
+            }
+        }
+
+                /**
+         * Verify payment with Stripe
+         */
+        async function verifyPayment(sessionId) {
+            try {
+                // Initialize Stripe
+                initializeStripe();
+
+                // Retrieve the checkout session from Stripe
+                const session = await stripe.retrieveCheckoutSession(sessionId);
+                
+                console.log('Stripe session retrieved:', session);
+
+                // Check payment status
+                if (session.payment_status === 'paid') {
+                    // Payment successful
+                    console.log('Payment verified as successful');
+                    
+                    // Update Firebase client-side
+                    const updateSuccess = await updateBookingPaymentStatus(sessionId, 'paid');
+                    
+                    // Optional: Additional server-side verification
+                    try {
+                        await verifyPaymentWithServer(sessionId);
+                    } catch (serverError) {
+                        console.warn('Server verification failed, but client verification succeeded:', serverError);
+                    }
+                    
+                    if (updateSuccess) {
+                        showSection('success-section');
+                    } else {
+                        // Payment was successful but couldn't update Firebase
+                        console.warn('Payment successful but could not update booking status');
+                        showSection('success-section');
+                    }
+                } else {
+                    // Payment not successful
+                    console.log('Payment status:', session.payment_status);
+                    
+                    // Update Firebase with current status
+                    await updateBookingPaymentStatus(sessionId, session.payment_status);
+                    
+                    // Show error section
+                    errorMessage.textContent = `Payment status: ${session.payment_status}`;
+                    errorDetails.style.display = 'block';
+                    showSection('error-section');
+                }
+            } catch (error) {
+                console.error('Error verifying payment:', error);
+                
+                // Show error section with details
+                errorMessage.textContent = error.message || 'Unknown error occurred';
+                errorDetails.style.display = 'block';
+                showSection('error-section');
+            }
+        }
+
+        /**
+         * Main function to handle payment verification
+         */
+        async function handlePaymentVerification() {
+            try {
+                // Get session ID from URL
+                const sessionId = getUrlParameter('session_id');
+
+                if (!sessionId) {
+                    throw new Error('No session ID found in URL parameters');
+                }
+
+                console.log('Verifying payment for session:', sessionId);
+
+                // Verify the payment
+                await verifyPayment(sessionId);
+
+            } catch (error) {
+                console.error('Payment verification failed:', error);
+
+                // Show error section
+                errorMessage.textContent = error.message || 'Failed to verify payment';
+                errorDetails.style.display = 'block';
+                showSection('error-section');
+            }
+        }
+
+        // Initialize payment verification when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add a small delay to ensure all scripts are loaded
+            setTimeout(handlePaymentVerification, 500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Verification Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-error {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Payment Verification Test</h1>
+
+    <div class="test-section info">
+        <h2>Test Scenarios</h2>
+        <p>This page tests the payment verification logic with different scenarios:</p>
+        <button class="btn-success" onclick="testSuccessScenario()">Test Success Scenario</button>
+        <button class="btn-error" onclick="testErrorScenario()">Test Error Scenario</button>
+        <button class="btn-info" onclick="testNoSessionScenario()">Test No Session ID</button>
+    </div>
+
+    <div id="results" class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-output"></div>
+    </div>
+
+    <script>
+        // Mock Stripe object for testing
+        const mockStripe = {
+            retrieveCheckoutSession: async (sessionId) => {
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                if (sessionId === 'cs_test_success') {
+                    return {
+                        payment_status: 'paid',
+                        id: sessionId,
+                        amount_total: 5000,
+                        currency: 'cad'
+                    };
+                } else if (sessionId === 'cs_test_error') {
+                    return {
+                        payment_status: 'unpaid',
+                        id: sessionId,
+                        amount_total: 5000,
+                        currency: 'cad'
+                    };
+                } else {
+                    throw new Error('Session not found');
+                }
+            }
+        };
+
+        // Mock Firebase for testing
+        const mockFirebase = {
+            firestore: () => ({
+                collection: () => ({
+                    where: () => ({
+                        get: async () => ({
+                            empty: false,
+                            docs: [{
+                                ref: {
+                                    update: async (data) => {
+                                        console.log('Mock Firebase update:', data);
+                                        return true;
+                                    }
+                                }
+                            }]
+                        })
+                    })
+                })
+            })
+        };
+
+        function log(message, type = 'info') {
+            const output = document.getElementById('test-output');
+            const timestamp = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.innerHTML = `<strong>[${timestamp}]</strong> <span class="${type}">${message}</span>`;
+            output.appendChild(div);
+        }
+
+        async function testSuccessScenario() {
+            log('Testing success scenario with session ID: cs_test_success', 'success');
+
+            try {
+                // Simulate the verification process
+                const sessionId = 'cs_test_success';
+                const session = await mockStripe.retrieveCheckoutSession(sessionId);
+
+                log(`Stripe session retrieved: ${session.payment_status}`, 'success');
+
+                if (session.payment_status === 'paid') {
+                    log('Payment verified as successful', 'success');
+                    log('Would update Firebase with isPaid: true', 'info');
+                    log('✅ SUCCESS: Payment verification passed', 'success');
+                } else {
+                    log('❌ ERROR: Payment status is not paid', 'error');
+                }
+            } catch (error) {
+                log(`❌ ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        async function testErrorScenario() {
+            log('Testing error scenario with session ID: cs_test_error', 'error');
+
+            try {
+                const sessionId = 'cs_test_error';
+                const session = await mockStripe.retrieveCheckoutSession(sessionId);
+
+                log(`Stripe session retrieved: ${session.payment_status}`, 'info');
+
+                if (session.payment_status === 'paid') {
+                    log('Payment verified as successful', 'success');
+                } else {
+                    log('❌ ERROR: Payment status is not paid', 'error');
+                    log('Would update Firebase with isPaid: false', 'info');
+                    log('Would show error section to user', 'info');
+                }
+            } catch (error) {
+                log(`❌ ERROR: ${error.message}`, 'error');
+            }
+        }
+
+        async function testNoSessionScenario() {
+            log('Testing scenario with no session ID', 'error');
+
+            try {
+                const sessionId = null;
+
+                if (!sessionId) {
+                    throw new Error('No session ID found in URL parameters');
+                }
+
+                log('This should not execute');
+            } catch (error) {
+                log(`❌ ERROR: ${error.message}`, 'error');
+                log('Would show error section to user', 'info');
+            }
+        }
+
+        // Test the URL parameter extraction function
+        function testUrlParameterExtraction() {
+            log('Testing URL parameter extraction...', 'info');
+
+            // Mock URL with session_id
+            const mockUrl = 'https://example.com/success.html?session_id=cs_test_success&other_param=value';
+            const urlParams = new URLSearchParams(mockUrl.split('?')[1]);
+            const sessionId = urlParams.get('session_id');
+
+            log(`Extracted session_id: ${sessionId}`, 'success');
+
+            if (sessionId) {
+                log('✅ SUCCESS: Session ID extracted correctly', 'success');
+            } else {
+                log('❌ ERROR: Failed to extract session ID', 'error');
+            }
+        }
+
+        // Run initial tests
+        document.addEventListener('DOMContentLoaded', function () {
+            log('Payment verification test page loaded', 'info');
+            testUrlParameterExtraction();
+        });
+    </script>
+</body>
+
+</html>
