@@ -274,7 +274,8 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
     });
   }, [active, lakes, routesReady]);
 
-  // Locate Me
+  // Locate Me — handles in-region and out-of-region users distinctly
+  const SERVICE_RADIUS_KM = 500; // anything beyond this is "outside service area"
   const locateMe = () => {
     if (!navigator.geolocation || !mapRef.current) {
       setLocateError("Geolocation not supported.");
@@ -290,6 +291,11 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
         if (userMarkerRef.current) userMarkerRef.current.remove();
         if (userLineRef.current) userLineRef.current.remove();
 
+        const distToKamloopsM = haversineMeters(userLatLng, KAMLOOPS);
+        const distToKamloopsKm = distToKamloopsM / 1000;
+        const outOfRegion = distToKamloopsKm > SERVICE_RADIUS_KM;
+
+        // Always drop a "You" marker so the user knows we got their location
         userMarkerRef.current = L.marker(userLatLng, { icon: userIcon() })
           .bindTooltip("You", {
             direction: "right",
@@ -299,7 +305,21 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
           })
           .addTo(map);
 
-        // Find nearest lake by great-circle distance
+        if (outOfRegion) {
+          // Don't draw a transcontinental line or fit bounds across hemispheres.
+          // Keep the map focused on the BC service area.
+          const hull = convexHull([...lakes.map((l) => l.coords), KAMLOOPS]);
+          const padded = expandHull(hull, 0.05);
+          map.fitBounds(L.polygon(padded).getBounds(), { padding: [40, 40] });
+          setUserInfo({
+            outOfRegion: true,
+            distanceKm: distToKamloopsKm.toFixed(0),
+          });
+          setLocating(false);
+          return;
+        }
+
+        // In-region: nearest lake + line + fit
         const dists = lakes.map((l, i) => ({
           i,
           d: haversineMeters(userLatLng, l.coords),
@@ -321,7 +341,7 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
 
         map.fitBounds([userLatLng, lakes[nearest.i].coords], { padding: [60, 60] });
         setUserInfo({
-          coords: userLatLng,
+          outOfRegion: false,
           nearest: nearest.name,
           distanceKm: fmtKm(nearest.d),
         });
@@ -389,11 +409,21 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
 
       {/* User-location info — bottom-left when located */}
       {userInfo && (
-        <div className="absolute bottom-4 left-4 bg-ink text-bone px-3 py-2 z-[400]">
-          <div className="eyebrow text-copper text-[9px]">Your location</div>
-          <div className="text-[11px] mt-1 numeral tnum">
-            ~{userInfo.distanceKm} km to {userInfo.nearest}
+        <div className="absolute bottom-4 left-4 bg-ink text-bone px-3 py-2 z-[400] max-w-[260px]">
+          <div className="eyebrow text-copper text-[9px]">
+            {userInfo.outOfRegion ? "Outside service area" : "Your location"}
           </div>
+          {userInfo.outOfRegion ? (
+            <div className="text-[11px] mt-1 leading-tight">
+              You're <span className="numeral tnum">~{userInfo.distanceKm} km</span> from
+              Kamloops. We rent on-site only — driving directions still work from any
+              starting point.
+            </div>
+          ) : (
+            <div className="text-[11px] mt-1 numeral tnum">
+              ~{userInfo.distanceKm} km to {userInfo.nearest}
+            </div>
+          )}
         </div>
       )}
 
