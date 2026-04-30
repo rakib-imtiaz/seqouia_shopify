@@ -230,6 +230,114 @@
 }
 .leaflet-control-attribution a { color: rgba(181, 104, 59, 0.85) !important; }
 
+/* Lake popup — opens on marker click, hosts "Get Directions" CTA */
+.leaflet-popup.lake-popup-wrap .leaflet-popup-content-wrapper {
+  background: #F2EDE2;
+  color: #0E1813;
+  border-radius: 0;
+  border: 1px solid rgba(14, 24, 19, 0.18);
+  box-shadow: 0 6px 22px rgba(14, 24, 19, 0.18);
+  padding: 0;
+}
+.leaflet-popup.lake-popup-wrap .leaflet-popup-content {
+  margin: 14px 16px 14px;
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.35;
+}
+.leaflet-popup.lake-popup-wrap .leaflet-popup-tip {
+  background: #F2EDE2;
+  border: 1px solid rgba(14, 24, 19, 0.18);
+  box-shadow: 0 6px 22px rgba(14, 24, 19, 0.18);
+}
+.lake-popup .popup-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  font-feature-settings: "tnum";
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #B5683B;
+  margin-bottom: 6px;
+}
+.lake-popup .popup-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.1;
+  color: #0E1813;
+  margin-bottom: 12px;
+}
+.lake-popup .popup-directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #0E1813;
+  color: #F2EDE2 !important;
+  text-decoration: none;
+  padding: 8px 12px;
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background 200ms ease, transform 200ms ease;
+}
+.lake-popup .popup-directions:hover {
+  background: #B5683B;
+  transform: translateY(-1px);
+}
+
+/* Route distance/time pills (one per lake, OSRM driving distance) */
+.leaflet-tooltip.route-pill {
+  background: rgba(242, 237, 226, 0.94);
+  border: 1px solid rgba(181, 104, 59, 0.45);
+  color: #B5683B;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  font-feature-settings: "tnum";
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 0;
+  box-shadow: 0 1px 4px rgba(14, 24, 19, 0.1);
+  white-space: nowrap;
+  transition: background 220ms, color 220ms, font-size 220ms, border-color 220ms;
+  pointer-events: none;
+}
+.leaflet-tooltip.route-pill::before { display: none; }
+.leaflet-tooltip.route-pill.is-active {
+  background: #B5683B;
+  border-color: #B5683B;
+  color: #F2EDE2;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 600;
+  box-shadow: 0 3px 10px rgba(181, 104, 59, 0.35);
+}
+
+/* User-location pin (Locate Me) — distinct blue ring vs editorial copper */
+.user-pin .user-pin-inner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(43, 100, 200, 0.22);
+  border: 2px solid #2B64C8;
+  position: relative;
+  box-shadow: 0 0 0 4px rgba(43, 100, 200, 0.1);
+  animation: userPulse 2.4s ease-in-out infinite;
+}
+.user-pin .user-pin-inner span {
+  position: absolute;
+  inset: 4px;
+  background: #2B64C8;
+  border-radius: 50%;
+  border: 2px solid #F2EDE2;
+}
+@keyframes userPulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(43, 100, 200, 0.1); }
+  50%      { box-shadow: 0 0 0 10px rgba(43, 100, 200, 0.0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .user-pin .user-pin-inner { animation: none; }
+}
+
 :root {
   --ink: #0E1813;
   --moss: #1F2C24;
