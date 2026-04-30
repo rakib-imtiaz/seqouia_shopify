@@ -230,6 +230,39 @@
 }
 .leaflet-control-attribution a { color: rgba(181, 104, 59, 0.85) !important; }
 
+/* Zoom control — match editorial palette (square, cream, ink) */
+.leaflet-control-zoom.leaflet-bar {
+  border: 1px solid rgba(14, 24, 19, 0.18);
+  border-radius: 0;
+  box-shadow: 0 1px 4px rgba(14, 24, 19, 0.1);
+  overflow: hidden;
+}
+.leaflet-control-zoom.leaflet-bar a {
+  background: rgba(242, 237, 226, 0.95);
+  color: #0E1813;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(14, 24, 19, 0.12);
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  transition: background 180ms, color 180ms;
+}
+.leaflet-control-zoom.leaflet-bar a:last-child {
+  border-bottom: 0;
+}
+.leaflet-control-zoom.leaflet-bar a:hover {
+  background: #0E1813;
+  color: #F2EDE2;
+}
+.leaflet-control-zoom.leaflet-bar a.leaflet-disabled {
+  background: rgba(242, 237, 226, 0.6);
+  color: rgba(14, 24, 19, 0.3);
+  cursor: default;
+}
+
 /* Lake popup — opens on marker click, hosts "Get Directions" CTA */
 .leaflet-popup.lake-popup-wrap .leaflet-popup-content-wrapper {
   background: #F2EDE2;

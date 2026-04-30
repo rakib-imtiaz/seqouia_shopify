@@ -156,9 +156,12 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
       center: [50.7, -120.05],
       zoom: 9,
       scrollWheelZoom: false,
-      zoomControl: false,
+      zoomControl: false, // disabled here so we can place it explicitly below
       attributionControl: true,
     });
+
+    // Zoom control — bottom-right, won't overlap any of the badges/CTAs.
+    L.control.zoom({ position: "bottomright" }).addTo(map);
 
     // CartoDB Voyager — colored roads + labels, Google-Maps-like.
     L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
@@ -427,8 +430,8 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
         </div>
       )}
 
-      {/* Coords ornament — bottom-right */}
-      <div className="absolute bottom-4 right-4 bg-bone/90 backdrop-blur px-3 py-2 border border-ink/10 z-[400] flex items-center gap-3 text-[10px] tracking-widest uppercase text-ink/60">
+      {/* Coords ornament — sits above the zoom control (bottom-right stack) */}
+      <div className="absolute bottom-[88px] right-4 bg-bone/90 backdrop-blur px-3 py-2 border border-ink/10 z-[400] flex items-center gap-3 text-[10px] tracking-widest uppercase text-ink/60">
         <span className="numeral tnum">50.6764° N</span>
         <span>·</span>
         <span className="numeral tnum">120.3408° W</span>
