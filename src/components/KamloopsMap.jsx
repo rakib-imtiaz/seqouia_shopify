@@ -156,7 +156,7 @@ export default function KamloopsMap({ lakes, active, onSelect }) {
       center: [50.7, -120.05],
       zoom: 9,
       scrollWheelZoom: false,
-      zoomControl: true,
+      zoomControl: false,
       attributionControl: true,
     });
 
