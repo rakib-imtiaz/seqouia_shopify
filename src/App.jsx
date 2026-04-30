@@ -14,7 +14,7 @@ import {
   TRUST_PILLARS,
 } from "./data";
 import ConciergeAccordion from "./components/ConciergeAccordion";
-import RegionMapStatic from "./components/RegionMapStatic";
+import KamloopsMap from "./components/KamloopsMap";
 import MaskReveal, { MaskLine } from "./components/MaskReveal";
 import ProgressBar from "./components/ProgressBar";
 import CountUp from "./components/CountUp";
@@ -895,7 +895,7 @@ function Lakes() {
             </p>
           </div>
           <div className="col-span-12 md:col-span-8">
-            <RegionMapStatic lakes={LAKES} active={active} onSelect={setActive} />
+            <KamloopsMap lakes={LAKES} active={active} onSelect={setActive} />
           </div>
         </div>
 
